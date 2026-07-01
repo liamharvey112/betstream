@@ -1,0 +1,33 @@
+# Go
+vendor/
+bin/
+dist/
+pkg/
+tmp/
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment
+.env
+.env.local
+.env.production
+.env.development
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+*.log
