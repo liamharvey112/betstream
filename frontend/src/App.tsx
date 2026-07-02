@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ApolloProvider } from '@apollo/client';
+import { ApolloProvider } from '@apollo/client/react';
 import { client } from './services/graphql';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { DashboardView } from './views/DashboardView';
@@ -48,9 +48,9 @@ function AppContent() {
             <div className="py-6">
                 <ErrorBoundary>
                     {currentPage === 'dashboard' ? (
-                        <DashboardView userId={user.id} />
+                        <DashboardView userId={user?.id || 'user-123'} />
                     ) : (
-                        <HistoryView userId={user.id} />
+                        <HistoryView userId={user?.id || 'user-123'} />
                     )}
                 </ErrorBoundary>
             </div>

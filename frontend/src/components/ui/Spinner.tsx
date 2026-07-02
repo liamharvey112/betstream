@@ -1,6 +1,6 @@
 interface SpinnerProps {
     size?: 'sm' | 'md' | 'lg';
-    colour?: 'blue' | 'white' | 'gray';
+    colour?: 'green' | 'white' | 'gray';
     className?: string;
 }
 
@@ -11,12 +11,12 @@ const sizeClasses = {
 };
 
 const colourClasses = {
-    blue: 'border-blue-600',
+    green: 'border-green-600',
     white: 'border-white',
     gray: 'border-gray-600'
 };
 
-export const Spinner = ({ size = 'md', colour = 'blue', className = '' }: SpinnerProps) => {
+export const Spinner = ({ size = 'md', colour = 'green', className = '' }: SpinnerProps) => {
     return (
         <div
             className={`
