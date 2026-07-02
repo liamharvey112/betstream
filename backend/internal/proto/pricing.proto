@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package pricing;
+
+option go_package = "github.com/liamharvey112/betstream/internal/pb/pricing";
+
+service PricingService {
+    rpc GetOdds (OddsRequest) returns (OddsResponse);
+    rpc UpdateOdds (UpdateOddsRequest) returns (OddsResponse);
+}
+
+message OddsRequest {
+    string event_id = 1;
+}
+
+message UpdateOddsRequest {
+    string event_id = 1;
+    double home_odds = 2;
+    double away_odds = 3;
+    double draw_odds = 4;
+}
+
+message OddsResponse {
+    string event_id = 1;
+    double home_odds = 2;
+    double away_odds = 3;
+    double draw_odds = 4;
+}
