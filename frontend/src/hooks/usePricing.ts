@@ -1,5 +1,5 @@
 //placeholder for future pricing service
-export const usePricing = (eventId: string) => {
+export const usePricing = (_eventId: string) => {
     return {
         homeOdds: 2.5,
         awayOdds: 3.2,

@@ -26,7 +26,7 @@ func NewBetService() *BetService {
 
 func (s *BetService) PlaceBet(ctx context.Context, userID, eventID string, amount, odds float64) (*repository.Bet, error) {
     // Call Pricing Service
-    conn, err := grpc.NewClient("localhost:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
+    conn, err := grpc.NewClient("pricing:50051", grpc.WithTransportCredentials(insecure.NewCredentials()))
     if err != nil {
         log.Printf("Failed to connect to pricing service: %v", err)
     } else {

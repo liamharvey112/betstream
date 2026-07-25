@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useAuth } from '../hooks/useAuth';
 import { PageLayout } from '../components/layout/PageLayout';
 import { BetForm } from '../components/bets/BetForm';
 import { BetList } from '../components/bets/BetList';

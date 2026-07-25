@@ -11,7 +11,7 @@ import (
 )
 
 func main() {
-	err := database.Connect([]string{"localhost"}, "betstream")
+	err := database.Connect([]string{"scylla"}, "betstream")
 
 	if err != nil {
 		log.Fatal(err)

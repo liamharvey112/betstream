@@ -21,13 +21,42 @@ services:
     ports:
       - "6379:6379"
 
-  # Optional: Add frontend service later
-  # frontend:
-  #   build: ./frontend
-  #   ports:
-  #     - "5173:5173"
-  #   depends_on:
-  #     - api    
+  api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: betstream-api
+    ports:
+      - "8080:8080"
+    depends_on:
+      scylla:
+        condition: service_healthy
+    environment:
+      SCYLLA_HOSTS: scylla
+      REDIS_URI: redis://redis:6379
+
+  pricing:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.pricing
+    container_name: betstream-pricing
+    ports:
+      - "50051:50051"
+    depends_on:
+      scylla:
+        condition: service_healthy
+    environment:
+      SCYLLA_HOSTS: scylla
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: betstream-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - api
 
 volumes:
   scylla_data:
