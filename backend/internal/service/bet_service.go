@@ -3,12 +3,15 @@ package service
 import (
     "context"
     "log"
+    "time"
 
     "google.golang.org/grpc"
     "google.golang.org/grpc/credentials/insecure"
 
+    "github.com/liamharvey112/betstream/internal/database"
     pb "github.com/liamharvey112/betstream/internal/pb/pricing"
     "github.com/liamharvey112/betstream/internal/repository"
+    "github.com/redis/go-redis/v9"
 )
 
 type BetService struct {
@@ -46,6 +49,25 @@ func (s *BetService) PlaceBet(ctx context.Context, userID, eventID string, amoun
     err = s.repo.Save(ctx, bet)
     if err != nil {
         return nil, err
+    }
+
+    if database.RedisClient != nil {
+        _, err = database.RedisClient.XAdd(ctx, &redis.XAddArgs{
+            Stream: "bet.placed",
+            Values: map[string]interface{}{
+                "user_id": userID,
+                "event_id": eventID,
+                "amount": amount,
+                "odds": odds,
+                "timestamp": time.Now().Unix(),
+            },
+        }).Result()
+
+        if err != nil {
+            log.Printf("Failed to publish Redis event: %v", err)
+        } else {
+            log.Printf("Published bet.placed event for user %s", userID)
+        }
     }
 
     return bet, nil

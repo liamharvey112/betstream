@@ -19,6 +19,13 @@ func main() {
 	}
 	defer database.Close()
 
+	// Connect to Redis
+	err = database.ConnectRedis("localhost:6379")
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	// Create Resolver
 	resolver := graph.NewResolver()
 
